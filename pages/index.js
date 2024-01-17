@@ -3,5 +3,3 @@ function Home() {
 }
 
 export default Home;
-
-pages/index.js
