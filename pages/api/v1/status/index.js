@@ -11,11 +11,11 @@ async function status(request, response) {
 
   response.status(200).json({
     updated_at: updatedAt,
-    postgres_version: postgresVersion.rows[0].server_version,
-    postgres_max_connections: parseInt(
-      postgresMaxConnections.rows[0].max_connections,
-    ),
-    postgres_used_connections: postgresUsedConnections.rowCount,
+    dependencies: {
+      database: {
+        version: postgresVersion.rows[0].server_version,
+      },
+    },
   });
 }
 
