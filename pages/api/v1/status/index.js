@@ -14,6 +14,9 @@ async function status(request, response) {
     dependencies: {
       database: {
         version: postgresVersion.rows[0].server_version,
+        max_connections: parseInt(
+          postgresMaxConnections.rows[0].max_connections,
+        ),
       },
     },
   });
