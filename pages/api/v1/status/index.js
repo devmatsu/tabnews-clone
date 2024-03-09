@@ -11,10 +11,10 @@ async function status(request, response) {
     dbMaxConnections.rows[0].max_connections,
   );
 
-  const dbUsedConnections = await database.query(
-    "SELECT * FROM pg_stat_activity;",
+  const dbOpenConnections = await database.query(
+    "SELECT COUNT(*)::int FROM pg_stat_activity WHERE datname = 'local_db';",
   );
-  const dbUsedConnectionsValue = dbUsedConnections.rowCount;
+  const dbOpenConnectionsValue = dbOpenConnections.rows[0].count;
 
   response.status(200).json({
     updated_at: updatedAt,
@@ -22,6 +22,7 @@ async function status(request, response) {
       database: {
         version: dbVersionValue,
         max_connections: dbMaxConnectionsValue,
+        opened_connections: dbOpenConnectionsValue,
       },
     },
   });
